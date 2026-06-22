@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Pop & Splash - Corrigido</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans overflow-hidden h-screen w-screen flex justify-center items-center relative">
+
+    <div class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-gradient-to-br from-cyan-500/20 to-purple-500/0 blur-[120px]"></div>
+    <div class="absolute bottom-[-10%] right-[-10%] w-[45vw] h-[45vw] rounded-full bg-gradient-to-tl from-pink-500/15 to-indigo-500/0 blur-[100px]"></div>
+
+    <canvas id="paintCanvas" class="absolute inset-0 pointer-events-none z-50"></canvas>
+
+    <div id="loginScreen" class="glass-panel p-10 rounded-[32px] w-96 z-20 border border-white/10 relative text-center flex flex-col items-center">
+        <div class="w-12 h-12 bg-gradient-to-tr from-pink-500 to-yellow-500 rounded-full rounded-bl-none rotate-45 mb-6 shadow-[0_0_20px_rgba(236,72,153,0.5)]"></div>
+        
+        <h2 class="text-3xl font-black mb-1 bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent tracking-tight">Creative Studio</h2>
+        <p class="text-xs text-purple-300/60 font-medium tracking-widest uppercase mb-8">Faça login para criar</p>
+        
+        <div class="w-full mb-4">
+            <input type="text" value="creative_mind" class="w-full px-5 py-3.5 rounded-2xl bg-white/[0.04] border border-white/10 focus:outline-none focus:border-purple-400/80 focus:bg-white/[0.08] transition-all text-white text-sm font-medium" placeholder="Usuário">
+        </div>
+        <div class="w-full mb-8">
+            <input type="password" value="123456" class="w-full px-5 py-3.5 rounded-2xl bg-white/[0.04] border border-white/10 focus:outline-none focus:border-purple-400/80 focus:bg-white/[0.08] transition-all text-white text-sm font-medium" placeholder="Senha">
+        </div>
+        
+        <div class="w-full relative flex justify-center">
+            <button id="btnConfirmar" type="button" class="w-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-extrabold py-4 rounded-2xl shadow-[0_12px_30px_rgba(168,85,247,0.35)] cursor-pointer hover:scale-[1.02] active:scale-95 transition-all text-sm tracking-widest uppercase z-30 border border-white/20">
+                Iniciar Sessão
+            </button>
+        </div>
+    </div>
+
+    <div id="captchaScreen" class="glass-panel p-8 rounded-[36px] w-[600px] z-20 border border-white/10 text-center absolute pointer-events-none opacity-0 scale-95 transition-all duration-300">
+        <div class="inline-block px-4 py-1.5 bg-amber-500/10 text-amber-400 rounded-full text-xs font-black uppercase tracking-widest border border-amber-500/20 mb-4">Laboratório de Segurança</div>
+        <h2 class="text-2xl font-black mb-1 text-white tracking-tight">Prova de Alquimia</h2>
+        <p class="text-sm text-slate-400 mb-8">Combine as cores primárias nas calhas para sintetizar os tons secundários</p>
+
+        <div id="gameZone" class="flex justify-between items-center h-64 relative px-6 bg-black/30 rounded-2xl p-4 border border-white/[0.05]">
+            
+            <div class="flex flex-col justify-between h-full py-1 z-30 relative">
+                <div id="balde-cyan" class="balde-moderno cyan-glow" data-color="cyan">
+                    <span class="text-white text-[10px] font-black tracking-wider pointer-events-none">CIANO</span>
+                </div>
+                <div id="balde-magenta" class="balde-moderno magenta-glow" data-color="magenta">
+                    <span class="text-white text-[10px] font-black tracking-wider pointer-events-none">MAGENTA</span>
+                </div>
+                <div id="balde-yellow" class="balde-moderno yellow-glow" data-color="yellow">
+                    <span class="text-slate-950 text-[10px] font-black tracking-wider pointer-events-none">AMARELO</span>
+                </div>
+            </div>
+
+            <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none text-[10px] text-slate-500 font-bold flex flex-col gap-1.5 text-left bg-white/[0.02] p-4 rounded-xl border border-white/[0.05] backdrop-blur-sm">
+                <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-cyan-400"></span> + <span class="w-2 h-2 rounded-full bg-pink-500"></span> = Violeta</div>
+                <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-cyan-400"></span> + <span class="w-2 h-2 rounded-full bg-yellow-400"></span> = Verde</div>
+            </div>
+
+            <div class="flex flex-col justify-around h-full z-20 gap-4">
+                <div id="alvo-violeta" class="alvo-complexo border-purple-500/30 bg-purple-500/5 text-purple-300" data-required="cyan,magenta" data-mixed="">
+                    <span class="title font-bold tracking-wider pointer-events-none">BASE VIOLETA</span>
+                    <span class="status text-[9px] font-medium text-purple-400/60 mt-1 pointer-events-none">Insira 2 cores</span>
+                </div>
+                <div id="alvo-verde" class="alvo-complexo border-emerald-500/30 bg-emerald-500/5 text-emerald-300" data-required="cyan,yellow" data-mixed="">
+                    <span class="title font-bold tracking-wider pointer-events-none">BASE VERDE</span>
+                    <span class="status text-[9px] font-medium text-emerald-400/60 mt-1 pointer-events-none">Insira 2 cores</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

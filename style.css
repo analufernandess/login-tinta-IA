@@ -1,0 +1,58 @@
+/* Painel com Glassmorphic Realista */
+.glass-panel {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6), 
+                inset 0 1px 0px rgba(255, 255, 255, 0.1);
+}
+
+/* Baldes de Tinta */
+.balde-moderno {
+    width: 60px;
+    height: 60px;
+    border-radius: 20px 20px 12px 12px;
+    cursor: grab;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    user-select: none;
+    touch-action: none;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    z-index: 40;
+}
+
+.balde-moderno:active { 
+    cursor: grabbing; 
+}
+
+/* Tons Primários e Seus Brilhos Modernos */
+.cyan-glow {
+    background: linear-gradient(135deg, #00b4d8, #0077b6);
+    box-shadow: 0 10px 25px rgba(0, 180, 216, 0.4), inset 0 4px 10px rgba(255, 255, 255, 0.4);
+}
+.magenta-glow {
+    background: linear-gradient(135deg, #f43f5e, #be123c);
+    box-shadow: 0 10px 25px rgba(244, 63, 94, 0.4), inset 0 4px 10px rgba(255, 255, 255, 0.4);
+}
+.yellow-glow {
+    background: linear-gradient(135deg, #ffb703, #fb8500);
+    box-shadow: 0 10px 25px rgba(255, 183, 3, 0.3), inset 0 4px 10px rgba(255, 255, 255, 0.5);
+}
+
+/* Bases Receptoras */
+.alvo-complexo {
+    width: 145px;
+    height: 75px;
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    background: rgba(255, 255, 255, 0.02);
+}
